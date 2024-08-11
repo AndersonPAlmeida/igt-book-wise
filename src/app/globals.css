@@ -6,7 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --backgroundPrimary: #0E1116;
   --colorText: #FFFFFF;
-  --background-end-rgb: 255, 255, 255;
+  --background-rgba: rgba(42,40,121,0.6);
 }
 
 body {
@@ -14,6 +14,7 @@ body {
   background: var(--backgroundPrimary);
   font-size: 0.875rem;
   line-height: 160%;
+  padding: 1.25rem;
 }
 
 @layer utilities {
