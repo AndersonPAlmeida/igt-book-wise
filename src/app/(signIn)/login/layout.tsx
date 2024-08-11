@@ -3,9 +3,5 @@ export default function LoginLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return (
-    <section className="grid grid-cols-2 min-h-[calc(100vh-40px)]">
-      {children}
-    </section>
-  )
+  return <section className="grid grid-cols-2 h-screen p-5">{children}</section>
 }
