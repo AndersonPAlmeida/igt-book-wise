@@ -3,5 +3,5 @@ export default function HomeLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <main>{children}</main>
+  return <section>{children}</section>
 }
