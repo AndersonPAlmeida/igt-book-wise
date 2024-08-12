@@ -10,7 +10,7 @@ export function Profile({ imageSrc }: ProfileProps) {
       width={40}
       height={40}
       alt="Foto de perfil"
-      className="rounded-full"
+      className="rounded-full w-10 h-10"
     />
   )
 }

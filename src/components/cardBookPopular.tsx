@@ -15,7 +15,13 @@ export function CardBookPopular({
 }: CardBookPopularProps) {
   return (
     <div className="bg-gray-700 flex items-center gap-5 p-5 rounded h-32">
-      <Image src={imageSrc} width={64} height={94} alt="capa do livro" />
+      <Image
+        src={imageSrc}
+        width={64}
+        height={94}
+        alt="capa do livro"
+        className="rounded-lg"
+      />
       <div className="flex flex-col justify-between  h-full">
         <span>
           <p className="text-base font-bold">{title}</p>

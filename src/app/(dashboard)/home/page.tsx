@@ -1,4 +1,5 @@
 import { CardBookPopular } from '@/components/cardBookPopular'
+import { CardLatestUpdates } from '@/components/cardLatestUpdates'
 import {
   ChartLineUp,
   Binoculars,
@@ -16,7 +17,7 @@ export default function Home() {
           className="
             bg-book-wise-aside h-full w-60 rounded-xl
             flex flex-col justify-between items-center
-            px-12 py-8
+            px-12 py-8 max-h-[calc(100vh-64px)]
         "
         >
           <div className="flex flex-col justify-between items-center gap-16">
@@ -44,16 +45,30 @@ export default function Home() {
         </aside>
       </div>
       <div className="flex-grow">
-        <header className="mt-20 mb-10 first-letter:flex gap-3 items-center">
+        <header className="mt-20 mb-10 flex gap-3 items-center">
           <ChartLineUp size={32} weight="bold" className="text-green-100" />{' '}
           <h1 className="text-2xl font-bold">Início</h1>
         </header>
-        <main className="flex-grow flex gap-3 pr-4 lg:gap-16 ">
-          <section className="flex-grow">
+        <main className="flex-grow flex gap-3 pr-4 pb-4 lg:gap-16 ">
+          <section className="flex-1 max-w-[1172px]">
             <p>Avaliações mais recentes</p>
+            <div className="flex gap-4 flex-wrap mt-4">
+              {Array.from({ length: 2 }, (_, index) => (
+                <CardLatestUpdates
+                  key={index}
+                  author="Robert C.Martin"
+                  classification="5"
+                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam cupiditate consequatur ab expedita reiciendis pariatur repudiandae facere libero aut sit, vero labore consequuntur sequi quos praesentium officia cum. Vero, dolor."
+                  imageBookSrc="/book/arquitetura-limpa.png"
+                  imageProfileSrc="/book/arquitetura-limpa.png"
+                  profileAuthor="Robert C.Martin"
+                  timeInterval="há 2 dias"
+                  title="Arquitetura Limpa"
+                />
+              ))}
+            </div>
           </section>
-          {/* <section className="w-80 max-lg:w-72 max-lg:hidden"> usar quando o código estiver pronto */}
-          <section className="w-80 max-lg:w-72">
+          <section className="w-80 max-lg:w-72 max-lg:hidden">
             <div className="flex justify-between items-center mb-4">
               <p>Livros populares</p>
               <Link
