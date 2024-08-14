@@ -14,7 +14,7 @@ export function CardBookPopular({
   author,
 }: CardBookPopularProps) {
   return (
-    <div className="bg-gray-700 flex items-center gap-5 p-5 rounded h-32">
+    <div className="bg-gray-700 flex items-center gap-5 p-5 rounded h-32 transition duration-700 hover:bg-gray-600">
       <Image
         src={imageSrc}
         width={64}

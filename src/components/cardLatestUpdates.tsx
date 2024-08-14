@@ -23,7 +23,7 @@ export function CardLatestUpdates({
   timeInterval,
 }: CardLatestUpdatesProps) {
   return (
-    <div className="bg-gray-700 flex flex-col gap-8 p-5 rounded h-max max-w-xl">
+    <div className="bg-gray-600 flex flex-col gap-8 p-5 rounded h-max max-w-xl transition duration-700 hover:bg-gray-500">
       <section className="flex justify-between items-start">
         <div className="flex gap-4">
           <Profile imageSrc={imageProfileSrc} />

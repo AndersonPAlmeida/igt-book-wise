@@ -1,6 +1,11 @@
 'use client'
 
-import { Binoculars, ChartLineUp, User } from '@phosphor-icons/react/dist/ssr'
+import {
+  Binoculars,
+  ChartLineUp,
+  SignIn,
+  User,
+} from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -81,7 +86,12 @@ export function MenuDashboard() {
             </span>
           </nav>
         </div>
-        <div>Perfil e botão de sair/ logar</div>
+        <div>
+          <button className="flex gap-3 items-center text-gray-200 text-base font-bold hover:text-gray-100">
+            Fazer login{' '}
+            <SignIn size={20} weight="bold" className="text-green-100" />
+          </button>
+        </div>
       </aside>
     </div>
   )
