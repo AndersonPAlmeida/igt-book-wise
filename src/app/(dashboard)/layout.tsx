@@ -6,7 +6,7 @@ export default function HomeLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="w-full min-h-screen flex">
+    <div className="w-full min-h-screen flex pr-4 pb-4 max-w-[1900px]">
       <MenuDashboard />
       {children}
     </div>

@@ -10,7 +10,8 @@ export default function Home() {
         <ChartLineUp size={32} weight="bold" className="text-green-100" />{' '}
         <h1 className="text-2xl font-bold">Início</h1>
       </header>
-      <main className="flex-grow flex gap-3 pr-4 pb-4 lg:gap-16 ">
+
+      <main className="flex-grow flex gap-3 lg:gap-16 justify-between">
         <section className="flex-1 max-w-[1172px]">
           <p>Avaliações mais recentes</p>
           <div className="flex gap-4 flex-wrap mt-4">
