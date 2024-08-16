@@ -1,3 +1,4 @@
+import { ButtonFilter } from '@/components/buttonFilter'
 import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 
 export default function Explore() {
@@ -23,6 +24,15 @@ export default function Explore() {
           />
         </div>
       </header>
+      <section className="flex gap-3">
+        {Array.from({ length: 8 }, (_, index) => (
+          <ButtonFilter
+            key={index}
+            nameButtonFilter="Tudo"
+            selected={index === 0}
+          />
+        ))}
+      </section>
     </div>
   )
 }
