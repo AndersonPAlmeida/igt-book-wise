@@ -1,9 +1,10 @@
 import { ButtonFilter } from '@/components/buttonFilter'
 import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
+import { CardBookPopular } from '@/components/cardBookPopular'
 
 export default function Explore() {
   return (
-    <div className="flex-grow">
+    <div className="flex-1">
       <header className="mt-20 mb-10 flex justify-between items-center">
         <div className="flex gap-3 items-center">
           <Binoculars size={32} weight="bold" className="text-green-100" />{' '}
@@ -24,13 +25,25 @@ export default function Explore() {
           />
         </div>
       </header>
-      <section className="flex gap-3">
+      <section className="flex gap-3 mb-10">
         {Array.from({ length: 8 }, (_, index) => (
           <ButtonFilter
             key={index}
             nameButtonFilter="Tudo"
             selected={index === 0}
           />
+        ))}
+      </section>
+      <section className=" flex gap-5 flex-wrap items-center justify-evenly">
+        {Array.from({ length: 8 }, (_, index) => (
+          <div key={index} className="min-w-[300px]">
+            <CardBookPopular
+              imageSrc="/book/arquitetura-limpa.png"
+              author="Robert C.Martin"
+              title="Arquitetura Limpa"
+              classification="5"
+            />
+          </div>
         ))}
       </section>
     </div>

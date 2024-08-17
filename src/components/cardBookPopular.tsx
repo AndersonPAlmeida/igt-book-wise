@@ -14,7 +14,7 @@ export function CardBookPopular({
   author,
 }: CardBookPopularProps) {
   return (
-    <div className="bg-gray-700 flex items-center gap-5 p-5 rounded h-32 transition duration-700 hover:bg-gray-600">
+    <div className="bg-gray-700 flex items-center gap-5 p-5 rounded h-32 w-full transition duration-700 cursor-pointer hover:bg-gray-600">
       <Image
         src={imageSrc}
         width={64}
@@ -22,7 +22,7 @@ export function CardBookPopular({
         alt="capa do livro"
         className="rounded-lg"
       />
-      <div className="flex flex-col justify-between  h-full">
+      <div className="flex flex-col justify-between h-full">
         <span>
           <p className="text-base font-bold">{title}</p>
           <p className="text-gray-400">{author}</p>
@@ -32,3 +32,6 @@ export function CardBookPopular({
     </div>
   )
 }
+
+// w 318 h 184 => explorer
+// w 324 h 130 => books popular

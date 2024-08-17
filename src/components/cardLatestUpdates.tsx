@@ -23,7 +23,7 @@ export function CardLatestUpdates({
   timeInterval,
 }: CardLatestUpdatesProps) {
   return (
-    <div className="bg-gray-600 flex flex-col gap-8 p-5 rounded h-max max-w-xl transition duration-700 hover:bg-gray-500">
+    <div className="bg-gray-600 flex flex-col gap-8 p-5 rounded max-h-72 transition duration-700 hover:bg-gray-500">
       <section className="flex justify-between items-start">
         <div className="flex gap-4">
           <Profile imageSrc={imageProfileSrc} />
@@ -40,12 +40,14 @@ export function CardLatestUpdates({
           width={108}
           height={152}
           alt="capa do livro"
-          className="rounded-md"
+          className="rounded-md max-h-[152px]"
         />
         <div>
           <h2 className="text-base font-bold">{title}</h2>
           <span className="text-gray-400">{author}</span>
-          <p className="text-gray-300">{description}</p>
+          <p className="text-gray-300 max-h-[112px] max-w-full text-ellipsis overflow-hidden">
+            {description}
+          </p>
         </div>
       </section>
     </div>

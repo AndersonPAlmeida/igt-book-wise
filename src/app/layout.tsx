@@ -21,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="pt-Br">
       <link rel="icon" href="/icon/LogoIcon.svg" type="image/svg+xml" />
-      <body className={nunito.className}>{children}</body>
+      <body className={`${nunito.className} max-w-[1440px] m-auto`}>
+        {children}
+      </body>
     </html>
   )
 }

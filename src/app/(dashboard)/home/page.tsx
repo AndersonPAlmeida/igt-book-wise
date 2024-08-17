@@ -5,32 +5,33 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="flex-grow">
+    <div className="flex-grow pl-10">
       <header className="mt-20 mb-10 flex gap-3 items-center">
         <ChartLineUp size={32} weight="bold" className="text-green-100" />{' '}
         <h1 className="text-2xl font-bold">Início</h1>
       </header>
 
-      <main className="flex-grow flex gap-3 lg:gap-16 justify-between">
-        <section className="flex-1 max-w-[1172px]">
+      <main className="flex-1 flex gap-3 justify-between">
+        <section className="flex-1 max-w-[608px]">
           <p>Avaliações mais recentes</p>
           <div className="flex gap-4 flex-wrap mt-4">
             {Array.from({ length: 2 }, (_, index) => (
-              <CardLatestUpdates
-                key={index}
-                author="Robert C.Martin"
-                classification="5"
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam cupiditate consequatur ab expedita reiciendis pariatur repudiandae facere libero aut sit, vero labore consequuntur sequi quos praesentium officia cum. Vero, dolor."
-                imageBookSrc="/book/arquitetura-limpa.png"
-                imageProfileSrc="/book/arquitetura-limpa.png"
-                profileAuthor="Robert C.Martin"
-                timeInterval="há 2 dias"
-                title="Arquitetura Limpa"
-              />
+              <div key={index} className="min-w-[324px]">
+                <CardLatestUpdates
+                  author="Robert C.Martin"
+                  classification="5"
+                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam cupiditate consequatur ab expedita reiciendis pariatur repudiandae facere libero aut sit, vero labore consequuntur sequi quos praesentium officia cum. Vero, dolor."
+                  imageBookSrc="/book/arquitetura-limpa.png"
+                  imageProfileSrc="/book/arquitetura-limpa.png"
+                  profileAuthor="Robert C.Martin"
+                  timeInterval="há 2 dias"
+                  title="Arquitetura Limpa"
+                />
+              </div>
             ))}
           </div>
         </section>
-        <section className="w-80 max-lg:w-72 max-lg:hidden">
+        <section className="w-80 max-lg:hidden">
           <div className="flex justify-between items-center mb-4">
             <p>Livros populares</p>
             <Link

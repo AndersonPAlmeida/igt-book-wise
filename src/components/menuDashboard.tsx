@@ -17,9 +17,9 @@ export function MenuDashboard() {
     <div className="p-5 place">
       <aside
         className="
-            bg-book-wise-aside h-full w-60 rounded-xl
+            bg-book-wise-aside h-screen max-h-[988px] w-[232px] rounded-xl
             flex flex-col justify-between items-center
-            px-12 py-8 max-h-[calc(100vh-64px)]
+            px-12 py-8
         "
       >
         <div className="flex flex-col justify-between items-center gap-16">
