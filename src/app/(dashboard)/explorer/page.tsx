@@ -1,8 +1,12 @@
+'use client'
 import { ButtonFilter } from '@/components/buttonFilter'
 import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 import { CardBookPopular } from '@/components/cardBookPopular'
+import { useLibrary } from '@/data/hooks/useLibrary'
 
 export default function Explore() {
+  const { categories } = useLibrary()
+
   return (
     <div className="flex-1">
       <header className="mt-20 mb-10 flex justify-between items-center">
@@ -25,14 +29,21 @@ export default function Explore() {
           />
         </div>
       </header>
-      <section className="flex gap-3 mb-10">
-        {Array.from({ length: 8 }, (_, index) => (
+      <section className="flex gap-3 mb-10 flex-wrap">
+        {categories.map((category) => (
+          <ButtonFilter
+            key={category.id}
+            nameButtonFilter={category.name}
+            selected={false}
+          />
+        ))}
+        {/* {Array.from({ length: 8 }, (_, index) => (
           <ButtonFilter
             key={index}
             nameButtonFilter="Tudo"
             selected={index === 0}
           />
-        ))}
+        ))} */}
       </section>
       <section className=" flex gap-5 flex-wrap items-center justify-evenly">
         {Array.from({ length: 8 }, (_, index) => (
