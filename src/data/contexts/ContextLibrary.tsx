@@ -2,6 +2,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { Book } from '../models/Book'
 import { Category } from '../models/Category'
+import { Rating } from '../models/Rating'
 
 interface ContextLibraryProps {
   children: ReactNode
@@ -10,9 +11,15 @@ interface ContextLibraryProps {
 interface ContextLibraryType {
   books: Book[]
   categories: Category[]
+  tags: string
+  filteredBooks: Book[]
+  tagSelected: (newTag: string) => void
+  sumRating: (evaluations: Rating[]) => number
 }
 
-export const ContextLibrary = createContext({} as ContextLibraryType)
+export const ContextLibrary = createContext<ContextLibraryType>(
+  {} as ContextLibraryType,
+)
 
 async function searchData() {
   const [booksResponse, categoriesResponse] = await Promise.all([
@@ -28,22 +35,45 @@ async function searchData() {
 
 export function ContextLibraryProvider({ children }: ContextLibraryProps) {
   const [books, setBooks] = useState<Book[]>([])
-  const [categories, setCategories] = useState<Category[]>([
-    { id: '', name: 'Tudo' },
-  ])
+  const [categories, setCategories] = useState<Category[]>([])
+  const [tags, setTags] = useState<string>('')
 
   useEffect(() => {
     async function fetchData() {
       const { booksSearch, categoriesSearch } = await searchData()
       setBooks(booksSearch)
-      setCategories((state) => [...state, ...categoriesSearch])
+      setCategories([{ id: '', name: 'Tudo' }, ...categoriesSearch])
     }
 
     fetchData()
   }, [])
 
+  function tagSelected(newTag: string) {
+    if (newTag === tags) {
+      setTags(tags)
+    } else {
+      setTags(newTag)
+    }
+  }
+
+  const filteredBooks = tags
+    ? books.filter((book) =>
+        book.categories.some((category) => category.categoryId === tags),
+      )
+    : books
+
+  const sumRating = (evaluations: Rating[]) => {
+    return Math.floor(
+      evaluations.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.rate
+      }, 0) / (evaluations.length || 1),
+    )
+  }
+
   return (
-    <ContextLibrary.Provider value={{ books, categories }}>
+    <ContextLibrary.Provider
+      value={{ books, categories, tags, tagSelected, filteredBooks, sumRating }}
+    >
       {children}
     </ContextLibrary.Provider>
   )

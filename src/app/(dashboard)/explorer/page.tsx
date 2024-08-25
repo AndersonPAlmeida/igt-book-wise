@@ -5,7 +5,12 @@ import { CardBookPopular } from '@/components/cardBookPopular'
 import { useLibrary } from '@/data/hooks/useLibrary'
 
 export default function Explore() {
-  const { categories } = useLibrary()
+  const { filteredBooks, categories, tags, tagSelected, sumRating } =
+    useLibrary()
+
+  function handleSelectTag(tag: string) {
+    tagSelected(tag)
+  }
 
   return (
     <div className="flex-1">
@@ -34,25 +39,19 @@ export default function Explore() {
           <ButtonFilter
             key={category.id}
             nameButtonFilter={category.name}
-            selected={false}
+            selected={category.id === tags}
+            onClick={() => handleSelectTag(category.id)}
           />
         ))}
-        {/* {Array.from({ length: 8 }, (_, index) => (
-          <ButtonFilter
-            key={index}
-            nameButtonFilter="Tudo"
-            selected={index === 0}
-          />
-        ))} */}
       </section>
       <section className=" flex gap-5 flex-wrap items-center justify-evenly">
-        {Array.from({ length: 8 }, (_, index) => (
-          <div key={index} className="min-w-[300px]">
+        {filteredBooks.map((book) => (
+          <div key={book.id} className="w-auto max-w-[370px]">
             <CardBookPopular
-              imageSrc="/book/arquitetura-limpa.png"
-              author="Robert C.Martin"
-              title="Arquitetura Limpa"
-              classification="5"
+              imageSrc={`${book.cover_url}`}
+              author={book.author}
+              title={book.name}
+              classification={sumRating(book.ratings)}
             />
           </div>
         ))}

@@ -1,4 +1,4 @@
-import { Category } from './Category'
+import { CategoriesOnBooks } from './CategoriesOnBook'
 import { Rating } from './Rating'
 
 export interface Book {
@@ -9,6 +9,6 @@ export interface Book {
   cover_url: string
   total_pages: number
   created_at: Date
-  categories: Category[]
+  categories: CategoriesOnBooks[]
   ratings: Rating[]
 }
