@@ -48,7 +48,9 @@ export default function Home() {
                 imageSrc="/book/arquitetura-limpa.png"
                 author="Robert C.Martin"
                 title="Arquitetura Limpa"
-                classification="5"
+                classification={5}
+                variantImage="home"
+                variant="home"
               />
             ))}
           </div>

@@ -1,11 +1,29 @@
-import Image from 'next/image'
 import { Rating } from './Rating'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { twMerge } from 'tailwind-merge'
+import { ImageCover } from './avatarCoverBook'
 
-interface CardBookPopularProps {
+const CardBookVariants = cva(
+  'bg-gray-700 flex items-center gap-5 p-5 rounded transition duration-700 cursor-pointer hover:bg-gray-600 w-[324px]',
+  {
+    variants: {
+      variant: {
+        explorer: 'h-[184px]',
+        home: 'h-[130px]',
+      },
+    },
+    defaultVariants: {
+      variant: 'explorer',
+    },
+  },
+)
+
+interface CardBookPopularProps extends VariantProps<typeof CardBookVariants> {
   imageSrc: string
   classification: number
   title: string
   author: string
+  variantImage: 'explorer' | 'home'
 }
 
 export function CardBookPopular({
@@ -13,19 +31,15 @@ export function CardBookPopular({
   classification,
   title,
   author,
+  variantImage,
+  variant,
 }: CardBookPopularProps) {
   return (
-    <div className="bg-gray-700 flex items-center gap-5 p-5 rounded  w-full transition duration-700 cursor-pointer hover:bg-gray-600">
-      <Image
-        src={imageSrc}
-        width={108}
-        height={152}
-        alt="capa do livro"
-        className="rounded-lg"
-      />
-      <div className="flex flex-col justify-between h-36">
+    <div className={twMerge(CardBookVariants({ variant }))}>
+      <ImageCover imageSrc={imageSrc} variant={variantImage} />
+      <div className="flex flex-col justify-between h-full flex-1">
         <span>
-          <p className="text-base font-bold">{title}</p>
+          <p className="text-base font-bold ">{title}</p>
           <p className="text-gray-400">{author}</p>
         </span>
         <span>
@@ -35,6 +49,3 @@ export function CardBookPopular({
     </div>
   )
 }
-
-// w 318 h 184 => explorer
-// w 324 h 130 => books popular

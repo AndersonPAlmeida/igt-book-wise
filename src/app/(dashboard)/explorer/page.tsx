@@ -52,6 +52,8 @@ export default function Explore() {
               author={book.author}
               title={book.name}
               classification={sumRating(book.ratings)}
+              variantImage="explorer"
+              variant="explorer"
             />
           </div>
         ))}
