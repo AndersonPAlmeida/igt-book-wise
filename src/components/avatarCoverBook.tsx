@@ -6,6 +6,7 @@ const ImageContainerVariants = cva('relative rounded-lg overflow-hidden', {
     variant: {
       explorer: 'w-[108px] h-[152px]',
       home: 'w-[64px] h-[94px]',
+      bookHighlight: 'w-[172px] h-[242px]',
     },
   },
   defaultVariants: {

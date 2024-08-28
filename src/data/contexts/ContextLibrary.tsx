@@ -72,7 +72,14 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
 
   return (
     <ContextLibrary.Provider
-      value={{ books, categories, tags, tagSelected, filteredBooks, sumRating }}
+      value={{
+        books,
+        categories,
+        tags,
+        tagSelected,
+        filteredBooks,
+        sumRating,
+      }}
     >
       {children}
     </ContextLibrary.Provider>

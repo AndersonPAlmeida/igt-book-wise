@@ -3,6 +3,8 @@ import { ButtonFilter } from '@/components/buttonFilter'
 import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 import { CardBookPopular } from '@/components/cardBookPopular'
 import { useLibrary } from '@/data/hooks/useLibrary'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { BookHighlighted } from '@/components/bookHighlighted'
 
 export default function Explore() {
   const { filteredBooks, categories, tags, tagSelected, sumRating } =
@@ -46,18 +48,25 @@ export default function Explore() {
       </section>
       <section className=" flex gap-5 flex-wrap items-center justify-evenly">
         {filteredBooks.map((book) => (
-          <div key={book.id} className="w-auto max-w-[370px]">
-            <CardBookPopular
-              imageSrc={`${book.cover_url}`}
-              author={book.author}
-              title={book.name}
-              classification={sumRating(book.ratings)}
-              variantImage="explorer"
-              variant="explorer"
-            />
-          </div>
+          <Dialog key={book.id}>
+            <DialogTrigger asChild>
+              <div className="w-auto max-w-[370px]">
+                <CardBookPopular
+                  imageSrc={`${book.cover_url}`}
+                  author={book.author}
+                  title={book.name}
+                  classification={sumRating(book.ratings)}
+                  variantImage="explorer"
+                  variant="explorer"
+                />
+              </div>
+            </DialogTrigger>
+            <DialogContent className="bg-gray-800 px-12 py-16">
+              <BookHighlighted bookHighlighted={book} />
+            </DialogContent>
+          </Dialog>
         ))}
-      </section>
+      </section>{' '}
     </div>
   )
 }
