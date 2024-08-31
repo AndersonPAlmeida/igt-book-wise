@@ -1,4 +1,4 @@
-import { Rating } from './Rating'
+import { RatingDisplay } from './Rating'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { ImageCover } from './avatarCoverBook'
@@ -43,7 +43,7 @@ export function CardBookPopular({
           <p className="text-gray-400">{author}</p>
         </span>
         <span>
-          <Rating classification={classification} />
+          <RatingDisplay classification={classification} />
         </span>
       </div>
     </div>

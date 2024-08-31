@@ -5,7 +5,7 @@ interface RatingProps {
   classification: number
 }
 
-export function Rating({ classification }: RatingProps) {
+export function RatingDisplay({ classification }: RatingProps) {
   const filledStars = Array(classification).fill(
     <Star size={16} weight="fill" />,
   )

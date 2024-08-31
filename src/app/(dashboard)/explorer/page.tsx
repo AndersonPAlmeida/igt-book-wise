@@ -3,7 +3,7 @@ import { ButtonFilter } from '@/components/buttonFilter'
 import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 import { CardBookPopular } from '@/components/cardBookPopular'
 import { useLibrary } from '@/data/hooks/useLibrary'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { BookHighlighted } from '@/components/bookHighlighted'
 
 export default function Explore() {
@@ -61,9 +61,8 @@ export default function Explore() {
                 />
               </div>
             </DialogTrigger>
-            <DialogContent className="bg-gray-800 px-12 py-16 overflow-y-auto">
-              <BookHighlighted bookHighlighted={book} />
-            </DialogContent>
+            {/* Conteudo do modal. */}
+            <BookHighlighted bookHighlighted={book} />
           </Dialog>
         ))}
       </section>{' '}
