@@ -1,9 +1,13 @@
-import { CardBookPopular } from '@/components/cardBookPopular'
+'use client'
+// import { CardBookPopular } from '@/components/cardBookPopular'
 import { CardLatestUpdates } from '@/components/cardLatestUpdates'
+import { useHome } from '@/data/hooks/useHome'
 import { ChartLineUp, CaretRight } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 
 export default function Home() {
+  const { ratings } = useHome()
+
   return (
     <div className="flex-grow pl-10">
       <header className="mt-20 mb-10 flex gap-3 items-center">
@@ -15,19 +19,8 @@ export default function Home() {
         <section className="flex-1 max-w-[608px]">
           <p>Avaliações mais recentes</p>
           <div className="flex gap-4 flex-wrap mt-4">
-            {Array.from({ length: 2 }, (_, index) => (
-              <div key={index} className="min-w-[324px]">
-                <CardLatestUpdates
-                  author="Robert C.Martin"
-                  classification="5"
-                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam cupiditate consequatur ab expedita reiciendis pariatur repudiandae facere libero aut sit, vero labore consequuntur sequi quos praesentium officia cum. Vero, dolor."
-                  imageBookSrc="/book/arquitetura-limpa.png"
-                  imageProfileSrc="/book/arquitetura-limpa.png"
-                  profileAuthor="Robert C.Martin"
-                  timeInterval="há 2 dias"
-                  title="Arquitetura Limpa"
-                />
-              </div>
+            {ratings.map((rating) => (
+              <CardLatestUpdates key={rating.id} ratingInformation={rating} />
             ))}
           </div>
         </section>
@@ -41,7 +34,7 @@ export default function Home() {
               Ver todos <CaretRight size={16} weight="bold" />
             </Link>
           </div>
-          <div className="flex flex-col gap-3">
+          {/* <div className="flex flex-col gap-3">
             {Array.from({ length: 5 }, (_, index) => (
               <CardBookPopular
                 key={index}
@@ -53,7 +46,7 @@ export default function Home() {
                 variant="home"
               />
             ))}
-          </div>
+          </div> */}
         </section>
       </main>
     </div>

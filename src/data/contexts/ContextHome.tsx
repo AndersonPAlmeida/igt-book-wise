@@ -1,46 +1,44 @@
 'use client'
 import { createContext, ReactNode, useEffect, useState } from 'react'
-import { Book } from '../models/Book'
 import { Category } from '../models/Category'
+import { Rating } from '../models/Rating'
 
-interface ContextLibraryProps {
+interface ContextHomeProps {
   children: ReactNode
 }
 
-interface ContextLibraryType {
-  books: Book[]
+interface ContextHomeType {
+  ratings: Rating[]
   categories: Category[]
   tags: string
-  filteredBooks: Book[]
   tagSelected: (newTag: string) => void
+  // sumRating: (evaluations: Rating[]) => number
 }
 
-export const ContextLibrary = createContext<ContextLibraryType>(
-  {} as ContextLibraryType,
-)
+export const ContextHome = createContext<ContextHomeType>({} as ContextHomeType)
 
 async function searchData() {
   const URL_BASE = process.env.NEXT_PUBLIC_URL_BASE
-  const [booksResponse, categoriesResponse] = await Promise.all([
-    fetch(`${URL_BASE}/api/books`),
+  const [ratingsResponse, categoriesResponse] = await Promise.all([
+    fetch(`${URL_BASE}/api/ratings`),
     fetch(`${URL_BASE}/api/categories`),
   ])
 
-  const booksSearch: Book[] = await booksResponse.json()
+  const ratingsSearch: Rating[] = await ratingsResponse.json()
   const categoriesSearch: Category[] = await categoriesResponse.json()
 
-  return { booksSearch, categoriesSearch }
+  return { ratingsSearch, categoriesSearch }
 }
 
-export function ContextLibraryProvider({ children }: ContextLibraryProps) {
-  const [books, setBooks] = useState<Book[]>([])
+export function ContextHomeProvider({ children }: ContextHomeProps) {
+  const [ratings, setRatings] = useState<Rating[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [tags, setTags] = useState<string>('')
 
   useEffect(() => {
     async function fetchData() {
-      const { booksSearch, categoriesSearch } = await searchData()
-      setBooks(booksSearch)
+      const { ratingsSearch, categoriesSearch } = await searchData()
+      setRatings(ratingsSearch)
       setCategories([{ id: '', name: 'Tudo' }, ...categoriesSearch])
     }
 
@@ -55,23 +53,16 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
     }
   }
 
-  const filteredBooks = tags
-    ? books.filter((book) =>
-        book.categories.some((category) => category.categoryId === tags),
-      )
-    : books
-
   return (
-    <ContextLibrary.Provider
+    <ContextHome.Provider
       value={{
-        books,
+        ratings,
         categories,
         tags,
         tagSelected,
-        filteredBooks,
       }}
     >
       {children}
-    </ContextLibrary.Provider>
+    </ContextHome.Provider>
   )
 }
