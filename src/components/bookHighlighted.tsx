@@ -3,15 +3,15 @@ import { ImageCover } from './avatarCoverBook'
 import { RatingDisplay } from './Rating'
 import { Separator } from './ui/separator'
 import { Book } from '@/data/models/Book'
-import { useLibrary } from '@/data/hooks/useLibrary'
 import { CardRating } from './cardRating'
 import { DialogContent } from './ui/dialog'
+import { useSumRating } from '@/data/hooks/useSumRating'
 
 interface BookHighlightedProps {
   bookHighlighted: Book
 }
 export function BookHighlighted({ bookHighlighted }: BookHighlightedProps) {
-  const { sumRating } = useLibrary()
+  const sumRating = useSumRating(bookHighlighted.ratings)
 
   return (
     <DialogContent className="bg-gray-800 px-12 py-16 overflow-y-auto">
@@ -29,9 +29,7 @@ export function BookHighlighted({ bookHighlighted }: BookHighlightedProps) {
                 <p className="text-gray-400">{bookHighlighted.author}</p>
               </span>
               <span>
-                <RatingDisplay
-                  classification={sumRating(bookHighlighted.ratings)}
-                />
+                <RatingDisplay classification={sumRating} />
                 <span>{`${bookHighlighted.ratings.length} avaliações`}</span>
               </span>
             </div>

@@ -1,5 +1,4 @@
 import { MenuDashboard } from '@/components/menuDashboard'
-import { ContextLibraryProvider } from '@/data/contexts/ContextLibrary'
 
 export default function HomeLayout({
   children,
@@ -9,7 +8,7 @@ export default function HomeLayout({
   return (
     <div className="w-full min-h-screen flex pr-4 pb-4">
       <MenuDashboard />
-      <ContextLibraryProvider>{children}</ContextLibraryProvider>
+      {children}
     </div>
   )
 }

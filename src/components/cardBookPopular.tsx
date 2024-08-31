@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { ImageCover } from './avatarCoverBook'
 import { Book } from '@/data/models/Book'
-import { useLibrary } from '@/data/hooks/useLibrary'
+import { useSumRating } from '@/data/hooks/useSumRating'
 
 const CardBookVariants = cva(
   'bg-gray-700 flex items-center gap-5 p-5 rounded transition duration-700 cursor-pointer hover:bg-gray-600 w-[324px]',
@@ -30,7 +30,7 @@ export function CardBookPopular({
   variantImage,
   variant,
 }: CardBookPopularProps) {
-  const { sumRating } = useLibrary()
+  const sumRating = useSumRating(bookInformation.ratings)
 
   return (
     <div className={twMerge(CardBookVariants({ variant }))}>
@@ -41,7 +41,7 @@ export function CardBookPopular({
           <p className="text-gray-400">{bookInformation.author}</p>
         </span>
         <span>
-          <RatingDisplay classification={sumRating(bookInformation.ratings)} />
+          <RatingDisplay classification={sumRating} />
         </span>
       </div>
     </div>

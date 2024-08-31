@@ -2,7 +2,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { Book } from '../models/Book'
 import { Category } from '../models/Category'
-import { Rating } from '../models/Rating'
+// import { Rating } from '../models/Rating'
 
 interface ContextLibraryProps {
   children: ReactNode
@@ -14,7 +14,7 @@ interface ContextLibraryType {
   tags: string
   filteredBooks: Book[]
   tagSelected: (newTag: string) => void
-  sumRating: (evaluations: Rating[]) => number
+  // sumRating: (evaluations: Rating[]) => number
 }
 
 export const ContextLibrary = createContext<ContextLibraryType>(
@@ -62,13 +62,13 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
       )
     : books
 
-  const sumRating = (evaluations: Rating[]) => {
-    return Math.floor(
-      evaluations.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.rate
-      }, 0) / (evaluations.length || 1),
-    )
-  }
+  // const sumRating = (evaluations: Rating[]) => {
+  //   return Math.floor(
+  //     evaluations.reduce((accumulator, currentValue) => {
+  //       return accumulator + currentValue.rate
+  //     }, 0) / (evaluations.length || 1),
+  //   )
+  // }
 
   return (
     <ContextLibrary.Provider
@@ -78,7 +78,7 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
         tags,
         tagSelected,
         filteredBooks,
-        sumRating,
+        // sumRating,
       }}
     >
       {children}
