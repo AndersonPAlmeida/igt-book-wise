@@ -8,14 +8,18 @@ export async function BooksAll() {
           category: true,
         },
       },
-      ratings: true,
+      ratings: {
+        include: {
+          user: true,
+        },
+      },
     },
   })
 
   return result
 }
 
-export async function BookUnique(idSearch: string) {
+export async function BookUnique(idBookSearch: string) {
   const result = await prisma.book.findUnique({
     include: {
       categories: {
@@ -23,10 +27,14 @@ export async function BookUnique(idSearch: string) {
           category: true,
         },
       },
-      ratings: true,
+      ratings: {
+        include: {
+          user: true,
+        },
+      },
     },
     where: {
-      id: idSearch,
+      id: idBookSearch,
     },
   })
 

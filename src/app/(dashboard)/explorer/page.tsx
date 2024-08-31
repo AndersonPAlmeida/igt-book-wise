@@ -61,7 +61,7 @@ export default function Explore() {
                 />
               </div>
             </DialogTrigger>
-            <DialogContent className="bg-gray-800 px-12 py-16">
+            <DialogContent className="bg-gray-800 px-12 py-16 overflow-y-auto">
               <BookHighlighted bookHighlighted={book} />
             </DialogContent>
           </Dialog>
