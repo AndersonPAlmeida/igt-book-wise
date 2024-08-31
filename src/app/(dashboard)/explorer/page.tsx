@@ -7,8 +7,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { BookHighlighted } from '@/components/bookHighlighted'
 
 export default function Explore() {
-  const { filteredBooks, categories, tags, tagSelected, sumRating } =
-    useLibrary()
+  const { filteredBooks, categories, tags, tagSelected } = useLibrary()
 
   function handleSelectTag(tag: string) {
     tagSelected(tag)
@@ -52,10 +51,7 @@ export default function Explore() {
             <DialogTrigger asChild>
               <div className="w-auto max-w-[370px]">
                 <CardBookPopular
-                  imageSrc={`${book.cover_url}`}
-                  author={book.author}
-                  title={book.name}
-                  classification={sumRating(book.ratings)}
+                  bookInformation={book}
                   variantImage="explorer"
                   variant="explorer"
                 />
