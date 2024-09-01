@@ -1,65 +1,51 @@
 'use client'
 import { createContext, ReactNode, useEffect, useState } from 'react'
-import { Category } from '../models/Category'
 import { Rating } from '../models/Rating'
+import { Book } from '../models/Book'
 
 interface ContextHomeProps {
   children: ReactNode
 }
 
 interface ContextHomeType {
-  ratings: Rating[]
-  categories: Category[]
-  tags: string
-  tagSelected: (newTag: string) => void
-  // sumRating: (evaluations: Rating[]) => number
+  ratingsRecents: Rating[]
+  ratingsAvgBook: Book[]
 }
 
 export const ContextHome = createContext<ContextHomeType>({} as ContextHomeType)
 
 async function searchData() {
   const URL_BASE = process.env.NEXT_PUBLIC_URL_BASE
-  const [ratingsResponse, categoriesResponse] = await Promise.all([
+  const [ratingsResponse, ratingsAvgResponse] = await Promise.all([
     fetch(`${URL_BASE}/api/ratings`),
-    fetch(`${URL_BASE}/api/categories`),
+    fetch(`${URL_BASE}/api/ratings-avg`),
   ])
 
-  const ratingsSearch: Rating[] = await ratingsResponse.json()
-  const categoriesSearch: Category[] = await categoriesResponse.json()
+  const ratingsRecentsSearch: Rating[] = await ratingsResponse.json()
+  const ratingsAvgBooksSearch: Book[] = await ratingsAvgResponse.json()
 
-  return { ratingsSearch, categoriesSearch }
+  return { ratingsRecentsSearch, ratingsAvgBooksSearch }
 }
 
 export function ContextHomeProvider({ children }: ContextHomeProps) {
-  const [ratings, setRatings] = useState<Rating[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
-  const [tags, setTags] = useState<string>('')
+  const [ratingsRecents, setRatingsRecents] = useState<Rating[]>([])
+  const [ratingsAvgBook, setRatingsAvgBook] = useState<Book[]>([])
 
   useEffect(() => {
     async function fetchData() {
-      const { ratingsSearch, categoriesSearch } = await searchData()
-      setRatings(ratingsSearch)
-      setCategories([{ id: '', name: 'Tudo' }, ...categoriesSearch])
+      const { ratingsRecentsSearch, ratingsAvgBooksSearch } = await searchData()
+      setRatingsRecents(ratingsRecentsSearch)
+      setRatingsAvgBook(ratingsAvgBooksSearch)
     }
 
     fetchData()
   }, [])
 
-  function tagSelected(newTag: string) {
-    if (newTag === tags) {
-      setTags(tags)
-    } else {
-      setTags(newTag)
-    }
-  }
-
   return (
     <ContextHome.Provider
       value={{
-        ratings,
-        categories,
-        tags,
-        tagSelected,
+        ratingsRecents,
+        ratingsAvgBook,
       }}
     >
       {children}

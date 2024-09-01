@@ -4,8 +4,9 @@ import { RatingDisplay } from './Rating'
 import { Separator } from './ui/separator'
 import { Book } from '@/data/models/Book'
 import { CardRating } from './cardRating'
-import { DialogContent } from './ui/dialog'
+import { DialogContent, DialogHeader } from './ui/dialog'
 import { useSumRating } from '@/data/hooks/useSumRating'
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog'
 
 interface BookHighlightedProps {
   bookHighlighted: Book
@@ -17,6 +18,10 @@ export function BookHighlighted({ bookHighlighted }: BookHighlightedProps) {
     <DialogContent className="bg-gray-800 px-12 py-16 overflow-y-auto">
       <div className="space-y-10">
         <div className="rounded-xl bg-gray-700 px-8 py-6 h-min w-full">
+          <DialogHeader>
+            <DialogTitle></DialogTitle>
+            <DialogDescription></DialogDescription>
+          </DialogHeader>
           {/* Informações do livro selecionado */}
           <section className="flex gap-8">
             <ImageCover

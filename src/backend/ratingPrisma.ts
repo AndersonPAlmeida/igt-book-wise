@@ -14,3 +14,40 @@ export async function RatingRecent() {
 
   return result
 }
+
+export async function RatingBookAvg() {
+  const topBookRatings = await prisma.rating.groupBy({
+    by: ['book_id'],
+    _avg: {
+      rate: true,
+    },
+    orderBy: {
+      _avg: {
+        rate: 'desc',
+      },
+    },
+    take: 3,
+  })
+
+  const result = await prisma.book.findMany({
+    where: {
+      id: {
+        in: topBookRatings.map((rating) => rating.book_id),
+      },
+    },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+      ratings: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  })
+
+  return result
+}
