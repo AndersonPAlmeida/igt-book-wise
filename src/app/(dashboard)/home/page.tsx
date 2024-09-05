@@ -56,19 +56,6 @@ export default function Home() {
               ))}
             </div>
           }
-          {/* <div className="flex flex-col gap-3">
-            {Array.from({ length: 5 }, (_, index) => (
-              <CardBookPopular
-                key={index}
-                imageSrc="/book/arquitetura-limpa.png"
-                author="Robert C.Martin"
-                title="Arquitetura Limpa"
-                classification={5}
-                variantImage="home"
-                variant="home"
-              />
-            ))}
-          </div> */}
         </section>
       </main>
     </div>

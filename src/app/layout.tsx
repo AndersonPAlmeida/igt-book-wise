@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import './globals.css'
+import SessionProviderWrapper from '@/components/providers/sessionProviderWrapper'
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="pt-Br">
       <link rel="icon" href="/icon/LogoIcon.svg" type="image/svg+xml" />
       <body className={`${nunito.className} max-w-[1440px] m-auto`}>
-        {children}
+        <SessionProviderWrapper>{children}</SessionProviderWrapper>
       </body>
     </html>
   )
