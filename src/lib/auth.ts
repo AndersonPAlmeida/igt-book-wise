@@ -14,4 +14,22 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async signIn({ account }) {
+      if (account?.error === 'access_denied') {
+        return '/?error=access_denied'
+      }
+      return true
+    },
+    async redirect({ url, baseUrl }) {
+      console.log('URL', url)
+      console.log('BASEURL', baseUrl)
+
+      if (url.startsWith('/')) {
+        return `${baseUrl}${url}`
+      }
+
+      return `${baseUrl}/home`
+    },
+  },
 }
