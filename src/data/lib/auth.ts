@@ -1,7 +1,9 @@
 import { AuthOptions } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
+import { PrismaAdapter } from './prisma-adapter'
 
 export const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
@@ -12,8 +14,19 @@ export const authOptions: AuthOptions = {
             'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
         },
       },
+      profile: (profile: GoogleProfile) => {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          avatar_url: profile.picture,
+        }
+      },
     }),
   ],
+  session: {
+    maxAge: 60 * 60 * 12, // 12 hours
+  },
   callbacks: {
     async signIn({ account }) {
       if (account?.error === 'access_denied') {
@@ -21,6 +34,7 @@ export const authOptions: AuthOptions = {
       }
       return true
     },
+
     async redirect({ url, baseUrl }) {
       console.log('URL', url)
       console.log('BASEURL', baseUrl)
@@ -30,6 +44,13 @@ export const authOptions: AuthOptions = {
       }
 
       return `${baseUrl}/home`
+    },
+
+    async session({ session, user }) {
+      return {
+        ...session,
+        user,
+      }
     },
   },
 }

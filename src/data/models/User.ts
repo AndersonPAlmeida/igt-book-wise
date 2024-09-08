@@ -5,6 +5,7 @@ import { Session } from './Session'
 export interface User {
   id: string
   name: string
+  email: string
   avatar_url?: string | null
   created_at: Date
 
