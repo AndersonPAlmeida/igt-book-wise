@@ -6,7 +6,7 @@ export default function HomeLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="max-w-[1440px] m-auto">
+    <div>
       <ContextHomeProvider>{children}</ContextHomeProvider>
     </div>
   )

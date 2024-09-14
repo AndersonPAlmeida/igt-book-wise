@@ -23,7 +23,9 @@ export default function RootLayout({
     <html lang="pt-Br">
       <link rel="icon" href="/icon/LogoIcon.svg" type="image/svg+xml" />
       <body className={`${nunito.className}`}>
-        <SessionProviderWrapper>{children}</SessionProviderWrapper>
+        <div className="max-w-[1440px] m-auto ">
+          <SessionProviderWrapper>{children}</SessionProviderWrapper>
+        </div>
       </body>
     </html>
   )

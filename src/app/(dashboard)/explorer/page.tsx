@@ -45,23 +45,22 @@ export default function Explore() {
           />
         ))}
       </section>
-      <section className=" flex gap-5 flex-wrap items-center justify-evenly">
-        {filteredBooks.map((book) => (
-          <Dialog key={book.id}>
-            <DialogTrigger asChild>
-              <div className="w-auto max-w-[370px]">
+      <Dialog>
+        <section className=" flex flex-wrap items-center justify-center gap-5">
+          {filteredBooks.map((book) => (
+            <>
+              <DialogTrigger asChild key={book.id}>
                 <CardBookPopular
                   bookInformation={book}
                   variantImage="explorer"
                   variant="explorer"
                 />
-              </div>
-            </DialogTrigger>
-            {/* Conteudo do modal. */}
-            <BookHighlighted bookHighlighted={book} />
-          </Dialog>
-        ))}
-      </section>{' '}
+              </DialogTrigger>
+              <BookHighlighted bookHighlighted={book} />
+            </>
+          ))}
+        </section>{' '}
+      </Dialog>
     </div>
   )
 }
