@@ -4,20 +4,25 @@ import {
   Binoculars,
   ChartLineUp,
   SignIn,
+  SignOut,
   User,
 } from '@phosphor-icons/react/dist/ssr'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { AvatarProfile } from './avatarProfile'
 
 export function MenuDashboard() {
   const pathname = usePathname()
+  const { status, data } = useSession()
 
   return (
-    <div className="p-5 place">
+    <div className="p-5 h-screen max-h-[988px]">
+      {/* <p>{JSON.stringify({ status, data }, null, 2)}</p> */}
       <aside
         className="
-            bg-book-wise-aside h-screen max-h-[988px] w-[232px] rounded-xl
+            bg-book-wise-aside h-full w-[232px] rounded-xl
             flex flex-col justify-between items-center
             px-12 py-8
         "
@@ -66,31 +71,55 @@ export function MenuDashboard() {
                 Explorar
               </Link>
             </span>
-            <span className="flex items-center gap-4">
-              <div
-                className={`w-1 h-6 rounded-full ${
-                  pathname === '/profile'
-                    ? 'bg-gradient-vertical'
-                    : 'bg-transparent'
-                }`}
-              />
-              <Link
-                href="/profile"
-                className={`flex gap-3 items-center hover:text-gray-100 ${
-                  pathname === '/profile' ? 'text-gray-100' : 'text-gray-400'
-                }`}
-              >
-                <User size={24} />
-                Perfil
-              </Link>
-            </span>
+            {status === 'authenticated' && (
+              <span className="flex items-center gap-4">
+                <div
+                  className={`w-1 h-6 rounded-full ${
+                    pathname === '/profile'
+                      ? 'bg-gradient-vertical'
+                      : 'bg-transparent'
+                  }`}
+                />
+                <Link
+                  href="/profile"
+                  className={`flex gap-3 items-center hover:text-gray-100 ${
+                    pathname === '/profile' ? 'text-gray-100' : 'text-gray-400'
+                  }`}
+                >
+                  <User size={24} />
+                  Perfil
+                </Link>
+              </span>
+            )}
           </nav>
         </div>
         <div>
-          <button className="flex gap-3 items-center text-gray-200 text-base font-bold hover:text-gray-100">
-            Fazer login{' '}
-            <SignIn size={20} weight="bold" className="text-green-100" />
-          </button>
+          <div className=" text-gray-200 text-base font-bold">
+            {status === 'authenticated' ? (
+              <span className="flex gap-3 items-center group">
+                <AvatarProfile imageSrc={data.user?.avatar_url} />
+                <button className="flex gap-3 items-center">
+                  <p className="group-hover:text-gray-100">
+                    {data?.user?.name?.split(' ')[0]}
+                  </p>
+                  <SignIn
+                    size={20}
+                    weight="bold"
+                    className="text-green-100 group-hover:text-green-500"
+                  />
+                </button>
+              </span>
+            ) : (
+              <button className="flex gap-3 items-center">
+                <p className="group-hover:text-gray-100">Fazer login</p>
+                <SignOut
+                  size={20}
+                  weight="bold"
+                  className="text-red-600 group-hover:text-red-500"
+                />
+              </button>
+            )}
+          </div>
         </div>
       </aside>
     </div>
