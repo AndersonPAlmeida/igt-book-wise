@@ -64,43 +64,30 @@ export default function Explore() {
           />
         ))}
       </section>
-      <Dialog>
-        <section className="flex-1 flex flex-wrap items-center justify-center gap-5">
-          {filteredBooks.length === 0 ? (
-            <div className=" flex flex-col items-center justify-center mt-8">
-              <h1 className="text-3xl font-bold">
-                Nenhum resultado encontrado
-              </h1>
-              <Books size={64} weight="fill" className="text-green-100" />
-            </div>
-          ) : (
-            filteredBooks.map((book) => (
-              <>
-                <DialogTrigger asChild key={book.id}>
+      <section className="flex-1 flex flex-wrap items-center justify-center gap-5">
+        {filteredBooks.length === 0 ? (
+          <div className=" flex flex-col items-center justify-center mt-8">
+            <h1 className="text-3xl font-bold">Nenhum resultado encontrado</h1>
+            <Books size={64} weight="fill" className="text-green-100" />
+          </div>
+        ) : (
+          filteredBooks.map((book) => (
+            <Dialog key={book.id}>
+              <DialogTrigger asChild>
+                <div className="w-auto max-w-[370px]">
                   <CardBookPopular
                     bookInformation={book}
                     variantImage="explorer"
                     variant="explorer"
                   />
-                </DialogTrigger>
-                <BookHighlighted bookHighlighted={book} />
-              </>
-            ))
-          )}
-          {filteredBooks.map((book) => (
-            <>
-              <DialogTrigger asChild key={book.id}>
-                <CardBookPopular
-                  bookInformation={book}
-                  variantImage="explorer"
-                  variant="explorer"
-                />
+                </div>
               </DialogTrigger>
+
               <BookHighlighted bookHighlighted={book} />
-            </>
-          ))}
-        </section>{' '}
-      </Dialog>
+            </Dialog>
+          ))
+        )}
+      </section>
     </div>
   )
 }
