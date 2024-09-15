@@ -18,8 +18,7 @@ export function MenuDashboard() {
   const { status, data } = useSession()
 
   return (
-    <div className="p-5 h-screen max-h-[988px]">
-      {/* <p>{JSON.stringify({ status, data }, null, 2)}</p> */}
+    <div className="h-screen p-4">
       <aside
         className="
             bg-book-wise-aside h-full w-[232px] rounded-xl
