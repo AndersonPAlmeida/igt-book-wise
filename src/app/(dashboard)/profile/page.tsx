@@ -1,5 +1,6 @@
 'use client'
 import { RatingDisplay } from '@/components/Rating'
+import { useProfile } from '@/data/hooks/useProfile'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MagnifyingGlass, User } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
@@ -13,12 +14,14 @@ const searcReviewBookSchema = z.object({
 type SearcReviewBookData = z.infer<typeof searcReviewBookSchema>
 
 export default function Profile() {
+  const { filteredRatingsBookOfProfile } = useProfile()
   const { register } = useForm<SearcReviewBookData>({
     resolver: zodResolver(searcReviewBookSchema),
   })
 
   return (
     <div className="flex-grow flex flex-col">
+      <p>{JSON.stringify(filteredRatingsBookOfProfile, null, 2)}</p>
       <header className="mt-20 mb-10 flex gap-3 items-center">
         <User size={32} weight="bold" className="text-green-100" />{' '}
         <h1 className="text-2xl font-bold">Perfil</h1>

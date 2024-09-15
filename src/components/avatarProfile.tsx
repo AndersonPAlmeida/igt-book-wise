@@ -23,7 +23,6 @@ interface AvatarProfileProps
 }
 
 export function AvatarProfile({ imageSrc, variant }: AvatarProfileProps) {
-  console.log('imageSrcT', imageSrc)
   return (
     <figure className={ImageContainerVariants({ variant })}>
       {imageSrc !== undefined && imageSrc !== null && (

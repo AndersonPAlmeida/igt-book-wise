@@ -17,6 +17,8 @@ export function MenuDashboard() {
   const pathname = usePathname()
   const { status, data } = useSession()
 
+  console.log(status, data)
+
   return (
     <div className="h-screen p-4">
       <aside
