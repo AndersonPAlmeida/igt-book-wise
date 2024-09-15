@@ -13,6 +13,7 @@ interface ContextLibraryType {
   tags: string
   filteredBooks: Book[]
   tagSelected: (newTag: string) => void
+  setTextSearch: (textSearch: string) => void
 }
 
 export const ContextLibrary = createContext<ContextLibraryType>(
@@ -36,6 +37,8 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
   const [books, setBooks] = useState<Book[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [tags, setTags] = useState<string>('')
+  const [textSearchBookOrAuthor, setTextSearchBookorAuthor] =
+    useState<string>('')
 
   useEffect(() => {
     async function fetchData() {
@@ -55,11 +58,23 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
     }
   }
 
-  const filteredBooks = tags
+  function setTextSearch(textSearch: string) {
+    setTextSearchBookorAuthor(textSearch)
+  }
+
+  const filteredBooksTags = tags
     ? books.filter((book) =>
         book.categories.some((category) => category.categoryId === tags),
       )
     : books
+
+  const filteredBooks = textSearchBookOrAuthor
+    ? filteredBooksTags.filter(
+        (filteredBookTags) =>
+          filteredBookTags.author.includes(textSearchBookOrAuthor) ||
+          filteredBookTags.name.includes(textSearchBookOrAuthor),
+      )
+    : filteredBooksTags
 
   return (
     <ContextLibrary.Provider
@@ -68,6 +83,7 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
         categories,
         tags,
         tagSelected,
+        setTextSearch,
         filteredBooks,
       }}
     >
