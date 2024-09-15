@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="pt-Br">
       <link rel="icon" href="/icon/LogoIcon.svg" type="image/svg+xml" />
       <body className={`${nunito.className}`}>
-        <div className="max-w-[1440px] mx-auto ">
+        <div className="max-w-[1440px] w-full mx-auto ">
           <SessionProviderWrapper>{children}</SessionProviderWrapper>
         </div>
       </body>
