@@ -6,8 +6,15 @@ export async function ProfileRatings(idUser: string) {
       created_at: 'desc',
     },
     include: {
-      user: true,
-      book: true,
+      book: {
+        include: {
+          categories: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
     },
     where: {
       user_id: idUser,

@@ -1,5 +1,6 @@
 'use client'
 
+import { ContextUserProvider } from '@/data/contexts/ContextUser'
 import { SessionProvider } from 'next-auth/react'
 
 export default function SessionProviderWrapper({
@@ -7,5 +8,9 @@ export default function SessionProviderWrapper({
 }: {
   children: React.ReactNode
 }) {
-  return <SessionProvider>{children}</SessionProvider>
+  return (
+    <SessionProvider>
+      <ContextUserProvider>{children}</ContextUserProvider>
+    </SessionProvider>
+  )
 }

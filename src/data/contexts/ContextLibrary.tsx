@@ -71,8 +71,12 @@ export function ContextLibraryProvider({ children }: ContextLibraryProps) {
   const filteredBooks = textSearchBookOrAuthor
     ? filteredBooksTags.filter(
         (filteredBookTags) =>
-          filteredBookTags.author.includes(textSearchBookOrAuthor) ||
-          filteredBookTags.name.includes(textSearchBookOrAuthor),
+          filteredBookTags.author
+            .toLocaleLowerCase()
+            .includes(textSearchBookOrAuthor.toLocaleLowerCase()) ||
+          filteredBookTags.name
+            .toLocaleLowerCase()
+            .includes(textSearchBookOrAuthor.toLocaleLowerCase()),
       )
     : filteredBooksTags
 
