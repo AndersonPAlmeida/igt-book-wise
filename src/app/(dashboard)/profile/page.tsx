@@ -2,6 +2,10 @@
 import { AvatarProfile } from '@/components/avatarProfile'
 import { CardProfile } from '@/components/cardProfile'
 import { InfoAvaliationsProfile } from '@/components/infoAvaliationsProfile'
+import {
+  LoadingCardProfile,
+  LoadingProfileUser,
+} from '@/components/loadings/loadingProfile'
 import { useProfile } from '@/data/hooks/useProfile'
 import { useUser } from '@/data/hooks/useUser'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,8 +16,10 @@ import {
   MagnifyingGlass,
   User,
   UserList,
+  XCircle,
 } from '@phosphor-icons/react/dist/ssr'
 import { getYear } from 'date-fns'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -36,8 +42,20 @@ export default function Profile() {
   const { register, watch } = useForm<SearcReviewBookData>({
     resolver: zodResolver(searcReviewBookSchema),
   })
+  const [isLoading, setIsLoading] = useState(true)
+  const searchValue = watch('search')
 
-  setTextSearch(watch('search'))
+  useEffect(() => {
+    setTextSearch(searchValue)
+  }, [searchValue, setTextSearch])
+
+  useEffect(() => {
+    if (filteredRatingsBookOfProfile.length === 0 && searchValue === '') {
+      setIsLoading(true)
+    } else {
+      setIsLoading(false)
+    }
+  }, [searchValue, filteredRatingsBookOfProfile, setIsLoading])
 
   return (
     <div className="flex-grow flex flex-col w-full">
@@ -62,49 +80,61 @@ export default function Profile() {
             />
           </div>
           <div className="flex flex-col gap-6">
-            {filteredRatingsBookOfProfile.map((profile) => {
-              return <CardProfile key={profile.id} profileView={profile} />
-            })}
+            {isLoading ? (
+              <LoadingCardProfile />
+            ) : filteredRatingsBookOfProfile.length === 0 && !isLoading ? (
+              <div className="flex flex-col items-center gap-2">
+                <XCircle size={80} weight="fill" className="text-green-100" />
+                <span className="leading-6 text-gray-400">
+                  Livro não avaliado
+                </span>
+              </div>
+            ) : (
+              filteredRatingsBookOfProfile.map((profile) => (
+                <CardProfile key={profile.id} profileView={profile} />
+              ))
+            )}
           </div>
         </section>
-        <section
-          className="w-72 flex flex-col gap-8
-        items-center"
-        >
-          <div className="flex flex-col gap-6 items-center">
-            <AvatarProfile
-              variant="profilePage"
-              imageSrc={userInfo.avatar_url}
-            />
-            <div className="flex flex-col items-center">
-              <h4 className="font-bold text-xl leading-7">{userInfo.name}</h4>
-              <span className="leading-6 text-gray-400">{`Membro desde ${getYear(new Date(userInfo.created_at))}`}</span>
+        {!userInfo || Object.keys(userInfo).length === 0 ? (
+          <LoadingProfileUser />
+        ) : (
+          <section className="w-72 flex flex-col gap-8 first-letter:items-center">
+            <div className="flex flex-col gap-6 items-center border border-transparent border-l-gray-700 pb-4">
+              <AvatarProfile
+                variant="profilePage"
+                imageSrc={userInfo.avatar_url}
+              />
+              <div className="flex flex-col items-center">
+                <h4 className="font-bold text-xl leading-7">{userInfo.name}</h4>
+                <span className="leading-6 text-gray-400">{`Membro desde ${getYear(new Date(userInfo.created_at))}`}</span>
+              </div>
+              <div className="w-10 h-2 bg-gradient-horizontal rounded-full"></div>
+              <div className="flex flex-col gap-10">
+                <InfoAvaliationsProfile
+                  icon={BookOpen}
+                  informationPrimary={pagesRead}
+                  informationSecondary="Páginas lidas"
+                />
+                <InfoAvaliationsProfile
+                  icon={Books}
+                  informationPrimary={uniqueBooks.length}
+                  informationSecondary="Livro(s) avaliado(s)"
+                />
+                <InfoAvaliationsProfile
+                  icon={UserList}
+                  informationPrimary={uniqueAuthors.length}
+                  informationSecondary="Autore(s) lido(s)"
+                />
+                <InfoAvaliationsProfile
+                  icon={BookmarkSimple}
+                  informationPrimary={categoryMostRead.join(', ')}
+                  informationSecondary="Categoria(s) mais lida"
+                />
+              </div>
             </div>
-            <div className="w-10 h-2 bg-gradient-horizontal rounded-full"></div>
-            <div className="flex flex-col gap-10">
-              <InfoAvaliationsProfile
-                icon={BookOpen}
-                informationPrimary={pagesRead}
-                informationSecondary="Páginas lidas"
-              />
-              <InfoAvaliationsProfile
-                icon={Books}
-                informationPrimary={uniqueBooks.length}
-                informationSecondary="Livro(s) avaliado(s)"
-              />
-              <InfoAvaliationsProfile
-                icon={UserList}
-                informationPrimary={uniqueAuthors.length}
-                informationSecondary="Autore(s) lido(s)"
-              />
-              <InfoAvaliationsProfile
-                icon={BookmarkSimple}
-                informationPrimary={categoryMostRead.join(', ')}
-                informationSecondary="Categoria(s) mais lida"
-              />
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
     </div>
   )

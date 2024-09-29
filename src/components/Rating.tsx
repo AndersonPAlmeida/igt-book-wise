@@ -6,11 +6,13 @@ interface RatingProps {
 }
 
 export function RatingDisplay({ classification }: RatingProps) {
-  const filledStars = Array(classification).fill(
-    <Star size={16} weight="fill" />,
-  )
+  const filledStars = Array.from({ length: classification }).map((_, index) => (
+    <Star key={`filled-${index}`} size={16} weight="fill" />
+  ))
 
-  const emptyStars = Array(5 - classification).fill(<Star size={16} />)
+  const emptyStars = Array.from({ length: 5 - classification }).map(
+    (_, index) => <Star key={`empty-${index}`} size={16} />,
+  )
 
   const stars = [...filledStars, ...emptyStars]
 

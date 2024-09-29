@@ -17,7 +17,7 @@ export function CardProfile({ profileView }: CardProfileProps) {
           addSuffix: true,
         }).replace(/^./, (str) => str.toUpperCase())}
       </span>
-      <div className="mt-2 bg-gray-700 rounded-lg p-6 flex flex-col gap-6">
+      <div className="mt-2 bg-gray-700 rounded-lg p-6 flex flex-col gap-6 border-2 border-transparent hover:border-gray-500">
         <section className="flex gap-6 h-32">
           <figure className="rounded w-24 h-full relative">
             <Image
