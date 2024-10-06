@@ -21,7 +21,7 @@ interface ImageCoverProps extends VariantProps<typeof ImageContainerVariants> {
 export function ImageCover({ imageSrc, variant }: ImageCoverProps) {
   return (
     <div className={ImageContainerVariants({ variant })}>
-      <Image src={imageSrc} fill={true} alt="capa do livro" objectFit="cover" />
+      <Image src={imageSrc} fill={true} alt="capa do livro" />
     </div>
   )
 }

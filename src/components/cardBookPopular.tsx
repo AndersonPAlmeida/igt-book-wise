@@ -6,7 +6,7 @@ import { Book } from '@/data/models/Book'
 import { useSumRating } from '@/data/hooks/useSumRating'
 
 const CardBookVariants = cva(
-  'bg-gray-700 flex items-center gap-5 p-5 rounded transition duration-700 cursor-pointer hover:bg-gray-600 w-[300px]',
+  'w-[300px] bg-gray-700 flex items-center gap-5 p-5 rounded transition duration-500 cursor-pointer border-2 border-transparent hover:border-gray-600',
   {
     variants: {
       variant: {
