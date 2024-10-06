@@ -13,7 +13,7 @@ export function CardLatestUpdates({
   ratingInformation,
 }: CardLatestUpdatesProps) {
   return (
-    <div className="w-full bg-gray-600 flex flex-col gap-8 p-5 rounded max-h-72 transition duration-700 hover:bg-gray-500">
+    <div className="w-full bg-gray-600 flex flex-col gap-8 p-5 rounded max-h-72 transition  cursor-pointer duration-700 border-2 border-transparent hover:border-gray-500">
       <section className="flex justify-between items-start">
         <div className="flex gap-4">
           <Profile imageSrc={`${ratingInformation.user.avatar_url}`} />
